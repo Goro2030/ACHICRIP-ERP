@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 
+import Login from './Login'
+
+
 const API_URL = 'http://localhost:8000'
 
 function App() {
+
+  const [logged, setLogged] = useState(false)
+
   const [socios, setSocios] = useState([])
   const [form, setForm] = useState({
     nombre: '',
@@ -22,10 +28,22 @@ function App() {
   })
   const [pagos, setPagos] = useState([])
 
+  const [eventoForm, setEventoForm] = useState({
+    nombre: '',
+    fecha: '',
+    descripcion: '',
+    pago_requerido: false
+  })
+  const [eventos, setEventos] = useState([])
+
   useEffect(() => {
-    fetch(`${API_URL}/socios/`).then(res => res.json()).then(setSocios)
-    fetch(`${API_URL}/pagos/`).then(res => res.json()).then(setPagos)
-  }, [])
+    if (logged) {
+      fetch(`${API_URL}/socios/`).then(res => res.json()).then(setSocios)
+      fetch(`${API_URL}/pagos/`).then(res => res.json()).then(setPagos)
+      fetch(`${API_URL}/eventos/`).then(res => res.json()).then(setEventos)
+    }
+  }, [logged])
+
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -42,6 +60,26 @@ function App() {
       .then(newSocio => {
         setSocios([...socios, newSocio])
         setForm({ nombre: '', rut: '', email: '', telefono: '', direccion: '', fecha_ingreso: '' })
+      })
+  }
+
+
+  const handleEventoChange = e => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    setEventoForm({ ...eventoForm, [e.target.name]: value })
+  }
+
+  const handleEventoSubmit = e => {
+    e.preventDefault()
+    fetch(`${API_URL}/eventos/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...eventoForm, pago_requerido: Boolean(eventoForm.pago_requerido) })
+    })
+      .then(res => res.json())
+      .then(newEvento => {
+        setEventos([...eventos, newEvento])
+        setEventoForm({ nombre: '', fecha: '', descripcion: '', pago_requerido: false })
       })
   }
 
@@ -63,8 +101,14 @@ function App() {
       })
   }
 
+
+  if (!logged) {
+    return <Login onLogin={() => setLogged(true)} />
+  }
+
   return (
-    <div className="App" style={{ padding: '1rem' }}>
+    <div className="App container">
+
       <h1>Gestor de Socios</h1>
 
       <h2>Nuevo Socio</h2>
@@ -101,6 +145,25 @@ function App() {
           <li key={p.id}>Socio {p.socio_id} - {p.monto} {p.moneda} - {new Date(p.fecha).toLocaleString()}</li>
         ))}
       </ul>
+
+      <h2>Nuevo Evento</h2>
+      <form onSubmit={handleEventoSubmit} className="form">
+        <input name="nombre" placeholder="Nombre" value={eventoForm.nombre} onChange={handleEventoChange} required />
+        <input name="fecha" type="datetime-local" value={eventoForm.fecha} onChange={handleEventoChange} required />
+        <input name="descripcion" placeholder="Descripción" value={eventoForm.descripcion} onChange={handleEventoChange} />
+        <label>
+          <input type="checkbox" name="pago_requerido" checked={eventoForm.pago_requerido} onChange={handleEventoChange} /> Requiere pago
+        </label>
+        <button type="submit">Guardar</button>
+      </form>
+
+      <h2>Eventos</h2>
+      <ul>
+        {eventos.map(e => (
+          <li key={e.id}>{e.nombre} - {new Date(e.fecha).toLocaleString()}</li>
+        ))}
+      </ul>
+
     </div>
   )
 }

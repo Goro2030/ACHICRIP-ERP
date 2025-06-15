@@ -56,6 +56,9 @@ class Socio(SocioBase):
     activo: bool
     pagos: list[Pago] = []
 
+    asistencias: list['Asistencia'] = []
+
+
     class Config:
         orm_mode = True
 
@@ -70,6 +73,22 @@ class EventoCreate(EventoBase):
 
 class Evento(EventoBase):
     id: int
+
+    asistencias: list['Asistencia'] = []
+
+    class Config:
+        orm_mode = True
+
+class AsistenciaBase(BaseModel):
+    socio_id: int
+
+class AsistenciaCreate(AsistenciaBase):
+    pass
+
+class Asistencia(AsistenciaBase):
+    id: int
+    evento_id: int
+
 
     class Config:
         orm_mode = True
