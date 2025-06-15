@@ -2,6 +2,7 @@
 
 Pequeño sistema de gestión de socios basado en FastAPI y React. Aún en etapas iniciales.
 
+
 ## Paso a paso para comenzar
 
 ### 1. Clonar el repositorio
@@ -54,10 +55,17 @@ Visita `http://localhost:5173` en tu navegador para probar la aplicación. La AP
 
 Al iniciar la app se mostrará una pantalla de inicio de sesión. Puedes ingresar con el usuario **admin** y contraseña **admin** para realizar pruebas.
 
+
 ### 6. Detener servidores y salir
 
 Presiona `Ctrl+C` para detener cada servidor. Para cerrar el entorno virtual ejecuta `deactivate`.
 
----
+
+La API expone endpoints básicos para socios, pagos y eventos y el frontend permite probarlos vía navegador.
+
+   ```bash
+   npm run dev
+   ```
+   Esto abre la aplicación en `http://localhost:5173`.
 
 La API expone endpoints básicos para socios, pagos y eventos y el frontend permite probarlos vía navegador.

@@ -55,6 +55,7 @@ class Socio(SocioBase):
     id: int
     activo: bool
     pagos: list[Pago] = []
+
     asistencias: list['Asistencia'] = []
 
     class Config:

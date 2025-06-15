@@ -7,6 +7,7 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Gestor de Socios")
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

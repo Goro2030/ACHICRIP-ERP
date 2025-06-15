@@ -6,6 +6,7 @@ const API_URL = 'http://localhost:8000'
 
 function App() {
   const [logged, setLogged] = useState(false)
+
   const [socios, setSocios] = useState([])
   const [form, setForm] = useState({
     nombre: '',
@@ -23,6 +24,7 @@ function App() {
     moneda: 'CLP'
   })
   const [pagos, setPagos] = useState([])
+
   const [eventoForm, setEventoForm] = useState({
     nombre: '',
     fecha: '',

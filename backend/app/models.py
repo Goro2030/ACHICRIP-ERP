@@ -17,6 +17,7 @@ class Socio(Base):
     pagos = relationship("Pago", back_populates="socio")
     asistencias = relationship("Asistencia", back_populates="socio")
 
+
 class Pago(Base):
     __tablename__ = "pagos"
     id = Column(Integer, primary_key=True, index=True)
@@ -35,6 +36,7 @@ class Evento(Base):
     fecha = Column(DateTime)
     descripcion = Column(String)
     pago_requerido = Column(Boolean, default=False)
+
     asistencias = relationship("Asistencia", back_populates="evento")
 
 class Asistencia(Base):
@@ -44,3 +46,4 @@ class Asistencia(Base):
     evento_id = Column(Integer, ForeignKey("eventos.id"))
     socio = relationship("Socio", back_populates="asistencias")
     evento = relationship("Evento", back_populates="asistencias")
+
