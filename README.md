@@ -1,5 +1,6 @@
 # ACHICRIP-ERP
 
+
 Pequeño sistema de gestión de socios basado en FastAPI y React. Aún en etapas iniciales.
 
 ## Desarrollo
@@ -11,7 +12,9 @@ Pequeño sistema de gestión de socios basado en FastAPI y React. Aún en etapas
    pip install -r backend/requirements.txt
    ```
 
+
 2. Ejecutar el servidor backend:
+
    ```bash
    uvicorn app.main:app --reload --app-dir backend
    ```
@@ -30,3 +33,4 @@ Pequeño sistema de gestión de socios basado en FastAPI y React. Aún en etapas
    Esto abre la aplicación en `http://localhost:5173`.
 
 La API expone endpoints básicos para socios, pagos y eventos y el frontend permite probarlos vía navegador.
+
