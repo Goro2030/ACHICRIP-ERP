@@ -19,6 +19,7 @@ def crear_pago(pago: schemas.PagoCreate, db: Session = Depends(database.get_db))
 def listar_pagos(db: Session = Depends(database.get_db)):
     return db.query(models.Pago).all()
 
+
 @router.get("/{pago_id}", response_model=schemas.Pago)
 def obtener_pago(pago_id: int, db: Session = Depends(database.get_db)):
     pago = db.query(models.Pago).get(pago_id)
@@ -45,3 +46,4 @@ def eliminar_pago(pago_id: int, db: Session = Depends(database.get_db)):
     db.delete(pago)
     db.commit()
     return {"ok": True}
+

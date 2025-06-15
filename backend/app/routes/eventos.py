@@ -1,4 +1,6 @@
+
 from fastapi import APIRouter, Depends, HTTPException
+
 from sqlalchemy.orm import Session
 from .. import models, schemas, database
 
@@ -15,6 +17,7 @@ def crear_evento(evento: schemas.EventoCreate, db: Session = Depends(database.ge
 @router.get("/", response_model=list[schemas.Evento])
 def listar_eventos(db: Session = Depends(database.get_db)):
     return db.query(models.Evento).all()
+
 
 @router.get("/{evento_id}", response_model=schemas.Evento)
 def obtener_evento(evento_id: int, db: Session = Depends(database.get_db)):
@@ -58,3 +61,4 @@ def registrar_asistencia(evento_id: int, asistencia: schemas.AsistenciaCreate, d
 @router.get("/{evento_id}/asistencias", response_model=list[schemas.Asistencia])
 def listar_asistencias(evento_id: int, db: Session = Depends(database.get_db)):
     return db.query(models.Asistencia).filter_by(evento_id=evento_id).all()
+
