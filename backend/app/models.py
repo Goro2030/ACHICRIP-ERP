@@ -15,7 +15,6 @@ class Socio(Base):
     observaciones = Column(String)
     activo = Column(Boolean, default=True)
     pagos = relationship("Pago", back_populates="socio")
-
     asistencias = relationship("Asistencia", back_populates="socio")
 
 
@@ -39,4 +38,12 @@ class Evento(Base):
     pago_requerido = Column(Boolean, default=False)
 
     asistencias = relationship("Asistencia", back_populates="evento")
+
+class Asistencia(Base):
+    __tablename__ = "asistencias"
+    id = Column(Integer, primary_key=True, index=True)
+    socio_id = Column(Integer, ForeignKey("socios.id"))
+    evento_id = Column(Integer, ForeignKey("eventos.id"))
+    socio = relationship("Socio", back_populates="asistencias")
+    evento = relationship("Evento", back_populates="asistencias")
 

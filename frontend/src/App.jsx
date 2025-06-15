@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-
 import Login from './Login'
-
 
 const API_URL = 'http://localhost:8000'
 
 function App() {
-
   const [logged, setLogged] = useState(false)
 
   const [socios, setSocios] = useState([])
@@ -44,7 +41,6 @@ function App() {
     }
   }, [logged])
 
-
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
@@ -62,7 +58,6 @@ function App() {
         setForm({ nombre: '', rut: '', email: '', telefono: '', direccion: '', fecha_ingreso: '' })
       })
   }
-
 
   const handleEventoChange = e => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
@@ -101,14 +96,12 @@ function App() {
       })
   }
 
-
   if (!logged) {
     return <Login onLogin={() => setLogged(true)} />
   }
 
   return (
     <div className="App container">
-
       <h1>Gestor de Socios</h1>
 
       <h2>Nuevo Socio</h2>
@@ -145,7 +138,6 @@ function App() {
           <li key={p.id}>Socio {p.socio_id} - {p.monto} {p.moneda} - {new Date(p.fecha).toLocaleString()}</li>
         ))}
       </ul>
-
       <h2>Nuevo Evento</h2>
       <form onSubmit={handleEventoSubmit} className="form">
         <input name="nombre" placeholder="Nombre" value={eventoForm.nombre} onChange={handleEventoChange} required />
@@ -163,7 +155,6 @@ function App() {
           <li key={e.id}>{e.nombre} - {new Date(e.fecha).toLocaleString()}</li>
         ))}
       </ul>
-
     </div>
   )
 }

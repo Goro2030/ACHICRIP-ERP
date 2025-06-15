@@ -58,7 +58,6 @@ class Socio(SocioBase):
 
     asistencias: list['Asistencia'] = []
 
-
     class Config:
         orm_mode = True
 
@@ -73,7 +72,6 @@ class EventoCreate(EventoBase):
 
 class Evento(EventoBase):
     id: int
-
     asistencias: list['Asistencia'] = []
 
     class Config:
@@ -88,7 +86,6 @@ class AsistenciaCreate(AsistenciaBase):
 class Asistencia(AsistenciaBase):
     id: int
     evento_id: int
-
 
     class Config:
         orm_mode = True
